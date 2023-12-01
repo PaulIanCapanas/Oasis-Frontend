@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css"
+import user_icon from "./assets/user-png.png" 
+import password_icon from "./assets/password-png.png" 
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <div className="container">
+        <div className="header">
+            <div className="text">Sign Up</div>
+            <div className="underline"></div>
+        </div>
+        <div className="inputs">
+            <div className="input">
+                <img src={user_icon} alt="" />
+                <input type="text" placeholder="Username"/>
+            </div>
+            <div className="input">
+                <img src={password_icon} alt="" />
+                <input type="password" placeholder="Password"/>
+            </div>
+        </div>
+    <div className="signUp">
+      <button className="submit">Sign Up</button>
+    </div>
+    </div>
     </div>
   );
-}
+};
 
 export default App;
+
