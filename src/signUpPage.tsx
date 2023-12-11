@@ -36,7 +36,6 @@ const SignupPage = () => {
         </div>
         <div className="inputs">
           <div className="input">
-            <img src={user_icon} alt="" />
             <input
               type="text"
               placeholder="Username"
@@ -46,7 +45,6 @@ const SignupPage = () => {
             />
           </div>
           <div className="input">
-            <img src={password_icon} alt="" />
             <input
               type="password"
               placeholder="Password"
@@ -56,7 +54,8 @@ const SignupPage = () => {
             />
           </div>
         </div>
-        <div className="signUp">
+        <div className="texts">Already have an account?<a href="/login">Log in here</a></div>
+        <div className="login">
           <button className="submit" onClick={handleSubmit}>Sign Up</button>
         </div>
       </div>
