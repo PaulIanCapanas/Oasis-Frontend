@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
           console.log('Axios response:', axiosError.response);
         } else {
           setLoginError('No response from the server');
-          navigate("/homePage")
+          navigate("/user-type")
         }
       } else {
         console.error('Error during login:', error);

@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200&family=Raleway:wght@700&display=swap');
 
+* {
+  box-sizing: border-box;
+}
 
 .container {
   display: flex;
@@ -44,7 +47,8 @@
   font-size: 20px;
   font-weight: 700;
 }
-.textResults{
+
+.textResults {
   position: relative;
   font-size: 50px;
   top: 100px;
@@ -129,65 +133,84 @@
   text-decoration: none;
 }
 
+
 .navbar {
-  position: fixed;
+  background-color: #fafafa;
+  position: absolute;
+  padding: 3px;
   width: 100%;
-  background-color: #ffffff;
-  padding: 10px;
+  left: 0;
+}
+
+.menu-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-a {
-  text-decoration: none;
-  color: #5172f5;
-}
-
-.navbar a{
-  background: linear-gradient(to right, #177760, #00FFFF); 
-  color: transparent; 
-  display: inline-block; 
-  -webkit-background-clip: text; 
-  background-clip: text;
-}
-
 .navbar-title {
-  color: #ffffff;
-  font-size: 30px;
-  margin: 0;
-  font-family: 'Raleway', sans-serif;
-  margin-left: 60px;
-}
-
-.logout{
-  margin-right: 30px;
+  margin-left: 20px;
 }
 
 .nav-list {
   list-style: none;
-  margin: 0;
   display: flex;
+  align-items: center;
 }
 
 .nav-item {
-  margin-right: 40px;
+  margin-left: 20px;
+  position: relative;
 }
 
-.nav-item a {
-  text-decoration: none;
-  color: #000000;
+.menubarImg {
+  width: 40px;
+  height: 30px;
+  margin-right: 30px;
+}
+
+
+.nav-list>div {
+  color: #333;
   font-weight: bold;
-  font-size: 16px;
-  font-family: 'Nunito Sans', sans-serif
+  cursor: pointer;
 }
 
-.nav-item a:hover {
-  color: #177760;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  right: 0;
 }
+
+.nav-item:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 20px 30px;
+  text-decoration: none;
+  display: block;
+}
+
+.logout {
+  background-color: #4caf50;
+}
+
+
+.dropdown-content a:hover {
+  background-color: #44444454;
+  color: #fff;
+}
+
 body {
   background-color: #f4f4f4;
   height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .search-container {
@@ -223,4 +246,60 @@ body {
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.user-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.owner-type,
+.customer-type {
+  padding: 50px;
+  border: 1px solid #ccc;
+  font-size: 40px;
+  border-radius: 8px;
+  margin: 80px;
+  background-color: rgba(255, 255, 255, 0.814);
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover {
+  color: #4caf50;
+}
+
+
+.listings-container {
+  max-width: 800px;
+  position: relative;
+  top: 150px;
+  left: 100px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.room-listing {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.room-listing img {
+  max-width: 100%;
+  height: auto;
+}
+
+.room-listing h3 {
+  margin-top: 0;
+}
+
+.room-listing p {
+  margin: 10px 0;
 }

@@ -3,12 +3,15 @@ import axios from 'axios';
 import "./App.css";
 import user_icon from "./assets/user-png.png";
 import password_icon from "./assets/password-png.png";
+import { useNavigate, NavigateFunction } from "react-router-dom";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+
+  const navigate  = useNavigate() as NavigateFunction;
 
   const handleChange = (e: any) => {
     setFormData({
@@ -19,8 +22,9 @@ const SignupPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/signup', formData);
+      const response = await axios.post('http://localhost:3000/create-user', formData);
       console.log('Server response:', response.data);
+      console.log('SignUp succesful!')
     } catch (error: any) {
     console.error('Error submitting form:', error);
     console.log('Axios response:', error.response);

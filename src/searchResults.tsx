@@ -5,7 +5,7 @@ import { useNavigate, NavigateFunction } from "react-router-dom";
 
 
 
-const HomePage = () => {
+const ResultsPage = () => {
     const [searchLocation, setSearchLocation] = useState('');
     const [searchBudget, setSearchBudget] = useState('');
     const navigate = useNavigate() as NavigateFunction
@@ -32,4 +32,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default ResultsPage;
