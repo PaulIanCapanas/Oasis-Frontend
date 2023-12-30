@@ -1,18 +1,19 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import LoginPage from "./loginPage";
-import SignupPage from "./signUpPage";
-import CustomerHomePage from "./customerHomePage";
-import OwnerHomePage from "./ownerHomePage";
-import ResultsPage from "./searchResults"
-import UserType from "./pickUserTypePage"
-import UserPage from "./userPage"
-import ChatPage from "./messages"
+
+import LoginPage from "./components/loginPage";
+import SignupPage from "./components/signUpPage";
+import CustomerHomePage from "./components/customerHomePage";
+import OwnerHomePage from "./components/ownerHomePage";
+import ResultsPage from "./components/searchResults"
+import UserType from "./components/pickUserTypePage"
+import ImageUploadForm from "./components/ImageUploadForm"
+
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/image-upload" element={<ImageUploadForm />}></Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/create-user" element={<SignupPage />} />
         <Route path="/customer-home-page" element={<CustomerHomePage/>} />
