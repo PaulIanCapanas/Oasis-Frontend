@@ -6,6 +6,8 @@ import CustomerHomePage from "./customerHomePage";
 import OwnerHomePage from "./ownerHomePage";
 import ResultsPage from "./searchResults"
 import UserType from "./pickUserTypePage"
+import UserPage from "./userPage"
+import ChatPage from "./messages"
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
         <Route path="/owner-home-page" element={<OwnerHomePage/>} />
         <Route path="/results" element={<ResultsPage/>}/>
         <Route path="/user-type" element={<UserType/>} />
+        <Route path="/user-page" element={<UserPage/>} />
+        <Route path="/chat" element={<ChatPage/>} />
       </Routes>
     </BrowserRouter>
   );

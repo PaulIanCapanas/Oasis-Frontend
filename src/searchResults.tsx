@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import "./App.css";
+import "./css/App.css";
 import { useNavigate, NavigateFunction } from "react-router-dom";
 
 
@@ -16,7 +16,7 @@ const ResultsPage = () => {
     return (
         <>
             <nav className="navbar">
-                <h1 className="navbar-title"><a className="navbarTitle" href="/homePage">Oasis</a></h1>
+                <h1 className="navbar-title"><a className="navbarTitle" href="/owner-home-page">Oasis</a></h1>
                 <ul className="nav-list">
                     <li className="nav-item"><a href="/">Home</a></li>
                     <li className="nav-item"><a href="/about">About</a></li>

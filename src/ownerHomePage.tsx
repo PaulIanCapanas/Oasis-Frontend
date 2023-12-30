@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import "./App.css";
+import "./css/App.css";
 import { useNavigate, NavigateFunction } from "react-router-dom";
 import MenuBar from "./assets/menubar.png"
 
@@ -23,8 +23,8 @@ const OwnerHomePage = () => {
                         <li className="nav-item">
                             <img src={MenuBar} className="menubarImg" />
                             <div className="dropdown-content">
-                                <a href="/profile">User</a>
-                                <a href="/messages">Messages</a>
+                                <a href="/user-page">User</a>
+                                <a href="/chat">Messages</a>
                                 <a href="/bookings">Bookings</a>
                                 <a href="/my-bookings">Your Bookings</a>
                                 <div className="logout"><a href="/login">Logout</a></div>
