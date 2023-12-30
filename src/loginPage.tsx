@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios, { AxiosError } from 'axios';
-import "./App.css";
+import "./css/App.css";
 import userIcon from "./assets/user-png.png";
 import passwordIcon from "./assets/password-png.png";
 import { useNavigate, NavigateFunction } from "react-router-dom";
@@ -86,7 +86,7 @@ const LoginPage: React.FC = () => {
             />
           </div>
         </div>
-        <div className="texts">Already have an account?<a href="/signUp">Sign up here</a></div>
+        <div className="texts">Already have an account?<a href="/create-user">Sign up here</a></div>
         {loginError && <div className="error-message">{loginError}</div>}
         <div className="login">
           <button className="submit" onClick={handleSubmit}>Login</button>

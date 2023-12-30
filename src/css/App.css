@@ -303,3 +303,64 @@ a:hover {
 .room-listing p {
   margin: 10px 0;
 }
+
+.main-container {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  max-width: 1200px;
+  top: 150px;
+  left: 90px;
+}
+
+.profile-container {
+  width: 30%;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20px;
+}
+
+.profile-image img {
+  width: 100%;
+  height: auto;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-info h2 {
+  margin: 0;
+}
+
+.profile-info p {
+  margin: 10px 0;
+  color: #777;
+}
+
+.user-content {
+  flex: 1;
+  margin-left: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.user-content h2 {
+  margin-top: 0;
+}
+
+.user-content p {
+  margin: 10px 0;
+}
+
