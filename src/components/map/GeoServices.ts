@@ -11,13 +11,15 @@ export default class GeoServices extends GeoServicesBase {
       name: "geolocation",
     });
     if (permission.state === "prompt") {
-      return (await (async () =>
-        new Promise((resolve, reject) => {
+      const promised = async (): Promise<boolean> => {
+        return new Promise((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(
             () => resolve(true),
             () => resolve(false)
           );
-        }))) as unknown as boolean;
+        })
+      }
+      return await promised();
     }
 
     return permission.state === "granted";

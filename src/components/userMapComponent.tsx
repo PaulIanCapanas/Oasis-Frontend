@@ -19,7 +19,7 @@ export default function UserMapComponent() {
                 styles: [
                     {
                         featureType: 'poi',
-                        stylers: [{ visibility: 'off' }]
+                        stylers: []
                     }
                 ]
             })
