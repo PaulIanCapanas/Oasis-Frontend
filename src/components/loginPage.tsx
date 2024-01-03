@@ -58,10 +58,10 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }} >
-      <div className="max-w-screen-2xl flex">
+    <div className="flex items-center justify-center min-h-screen" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }} >
+      <div className="flex max-w-screen-2xl">
         <div className="flex-1 p-10 bg-white rounded-md shadow-md">
-          <div className="text-3xl font-semibold mb-6 text-gray-800">Login</div>
+          <div className="mb-6 text-3xl font-semibold text-gray-800">Login</div>
           <div className="mb-6 text-gray-600">
             Oasis is totally free to use. Sign up using your email address or username below to get started.
           </div>
@@ -89,10 +89,10 @@ const LoginPage: React.FC = () => {
             <div className="mb-6 text-sm text-blue-500">
               Don't have an account? <a href="/create-user">Register here</a>
             </div>
-            {loginError && <div className="text-red-500 mb-6">{loginError}</div>}
+            {loginError && <div className="mb-6 text-red-500">{loginError}</div>}
             <div>
               <button
-                className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600"
+                className="w-full py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600"
                 onClick={handleSubmit}
               >
                 Login
@@ -101,9 +101,9 @@ const LoginPage: React.FC = () => {
           </form>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center bg-gray-200 p-10 rounded-md">
-          <img src={logo} alt="Logo" className="w-32 h-32 mb-6 object-cover rounded-full" />
-          <img src={image} alt="Image" className="w-full h-64 object-cover mb-6 rounded-md" />
+        <div className="flex flex-col items-center justify-center flex-1 p-10 bg-gray-200 rounded-md">
+          <img src={logo} alt="Logo" className="object-cover w-32 h-32 mb-6 rounded-full" />
+          <img src={image} alt="Image" className="object-cover w-full h-64 mb-6 rounded-md" />
           <div className="text-center text-gray-600">
             Find comfort away from home, discover your Oasis in every city.
           </div>

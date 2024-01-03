@@ -10,12 +10,12 @@ const CustomerHomeNav: React.FC = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-gray-800">
+    <nav className="fixed w-full flex items-center justify-between p-4 bg-gray-800">
       <Link to="/homePage" className="text-2xl font-bold text-white hover:text-gray-300">
         Oasis
       </Link>
-      <div className="flex items-center space-x-4">
-        <div className="relative ml-4 group">
+      <div className="flex items-center space-x-4 ml-auto">
+        <div className="relative group">
           <img
             src={MenuBar}
             alt="Menu"

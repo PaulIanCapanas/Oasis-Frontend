@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginPage from "./components/loginPage";
+import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignUpPage";
-import CustomerHomePage from "./components/customerHomePage";
+import CustomerHomePage from "./components/CustomerHomePage";
 import OwnerHomePage from "./components/ownerHomePage";
 import ResultsPage from "./components/searchResults"
 import UserType from "./components/pickUserTypePage"
