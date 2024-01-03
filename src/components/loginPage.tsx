@@ -25,20 +25,28 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log(formData.username, formData.password)
+
     if (!formData.username.trim() || !formData.password.trim()) {
       setLoginError('Please enter both username and password');
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/homePage', formData);
+      console.log(1)
+      const response = await axios.post('http://localhost:3000/user/login', formData);
+      const data = response.data;
+      localStorage.setItem('token', data.token);
+      console.log('Login successful. Token', data.token);
 
       if (response.data.success) {
         setLoginError(null);
-        navigate('/homePage');
+        navigate('/ownerHomepage');
       } else {
         setLoginError('Invalid credentials. Please try again.');
       }
+
+
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
