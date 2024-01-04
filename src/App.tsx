@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginPage from "./components/LoginPage";
+import LoginPage from "./components/loginPage";
 import SignupPage from "./components/SignUpPage";
-import CustomerHomePage from "./components/CustomerHomePage";
+import CustomerHomePage from "./components/customerHomePage";
 import OwnerHomePage from "./components/ownerHomePage";
 import ResultsPage from "./components/searchResults"
 import UserType from "./components/pickUserTypePage"
