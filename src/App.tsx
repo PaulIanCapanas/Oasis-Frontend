@@ -6,6 +6,7 @@ import ResultsPage from "./components/searchResults"
 import UserType from "./components/pickUserTypePage"
 import ImageUploadForm from "./components/ImageUploadForm"
 import Description from "./components/descriptionPage";
+import UserMapComponent from "./components/userMapComponent";
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/results" element={<ResultsPage/>}/>
         <Route path="/user-type" element={<UserType/>} />
         <Route path="/description" element={<Description/>} />
+        <Route path="/maps" element={<UserMapComponent/>} />
         {/* <Route path="/user-page" element={<UserPage/>} />
         <Route path="/chat" element={<ChatPage/>} /> */}
       </Routes>
