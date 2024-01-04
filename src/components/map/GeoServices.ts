@@ -39,7 +39,7 @@ export default class GeoServices extends GeoServicesBase {
       const successGeoCodeAction = (
         geolocationPosition: GeolocationPosition
       ) => {
-        this._instance.load().then((google) => {
+        this._instance.load().then((google: any) => {
           const geoCodeRequest = {
             location: new google.maps.LatLng(
               geolocationPosition.coords.latitude,
@@ -50,7 +50,7 @@ export default class GeoServices extends GeoServicesBase {
           const geocoder = new google.maps.Geocoder();
           geocoder
             .geocode(geoCodeRequest)
-            .then((result) => {
+            .then((result: any) => {
               if (result.results[0]) {
                 return resolve({
                   latitude: geolocationPosition.coords.latitude,
@@ -60,8 +60,8 @@ export default class GeoServices extends GeoServicesBase {
 
               return reject(new Error("Location not found. Try again later."));
             })
-            .catch((e) =>
-              reject(new Error("Geocode error occurred: " + e.message))
+            .catch((error: Error) =>
+              reject(new Error("Geocode error occurred: " + error))
             );
         });
       };
