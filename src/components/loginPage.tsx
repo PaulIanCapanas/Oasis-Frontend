@@ -7,7 +7,7 @@ import backgroundImage from '../assets/bg.jpg';
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -25,13 +25,13 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.username.trim() || !formData.password.trim()) {
+    if (!formData.email.trim() || !formData.password.trim()) {
       setLoginError('Please enter both username and password');
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/homePage', formData);
+      const response = await axios.post('http://localhost:3000/user/login', formData);
 
       if (response.data.success) {
         setLoginError(null);
@@ -70,8 +70,8 @@ const LoginPage: React.FC = () => {
               <input
                 type="text"
                 placeholder="Username or Email"
-                name="username"
-                value={formData.username}
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border rounded-md"
               />
