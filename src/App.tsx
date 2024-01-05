@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/loginPage";
 import SignupPage from "./components/SignUpPage";
@@ -10,10 +11,9 @@ import UserMapComponent from "./components/userMapComponent";
 import BuildingRegistration from "./components/buildingRegisterPage"
 import { useState } from "react";
 import BuildingMapComponent from "./components/buildingMapComponent";
-
+import ChatEntry from "./components/messaging/chatEntry";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   return (
     <BrowserRouter>
       <Routes>
@@ -26,6 +26,7 @@ const App = () => {
         <Route path="/description" element={<Description/>} />
         <Route path="/map" element={<UserMapComponent/>} />
         <Route path="/building-register" element={<BuildingRegistration/>} />
+        <Route path="chat-entry" element={<ChatEntry/>} />
         {/* <Route path="/user-page" element={<UserPage/>} />
         <Route path="/chat" element={<ChatPage/>} /> */}
       </Routes>

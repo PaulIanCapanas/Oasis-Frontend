@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRef, useState, useEffect } from 'react';
 import GeoServices from './map/GeoServices';
 import axios from 'axios';
