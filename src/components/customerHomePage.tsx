@@ -4,6 +4,8 @@ import CustomerHomeNav from "./CustomerHomeNav";
 import UserMapComponent from "./userMapComponent";
 import background from "../assets/bg.png";
 import GeoServices from "./map/GeoServices";
+import { useTokenValidation } from './AuthValid/validToken'; // Adjust the import path
+
 
 interface Feature {
   title: string;
@@ -44,12 +46,17 @@ const features: Feature[] = [
   },
 ];
 
-const CustomerHomePage: React.FC = () => {
+
+
+const Homepage: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState<string>("");
   const [searchBudget, setSearchBudget] = useState<string>("");
   const searchBoxRef = useRef(null);
 
   const navigate = useNavigate();
+  // const [decodedToken, setDecodedToken] = useState<any | null>(null);
+    // const [tokenValid, setTokenValid] = useState<boolean | null>(null);
+
 
 
   useEffect(() => {
@@ -72,6 +79,16 @@ const CustomerHomePage: React.FC = () => {
 
     navigate("/results");
   };
+  const { tokenValid, decodedToken } = useTokenValidation();
+  
+  if (tokenValid === null) {
+    return <div>Loading...</div>; // Or some loading spinner
+  }
+
+  if (!tokenValid) {
+    return <div>Invalid token</div>; // Or redirect to login page
+  }
+
 
   return (
     <div
@@ -113,13 +130,13 @@ const CustomerHomePage: React.FC = () => {
                 <option value="300">10000+</option>
               </select>
               <button
-              className="px-4 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-700"
-              onClick={handleSearch}
-            >
-              Search
-            </button>
+                className="px-4 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+                onClick={handleSearch}
+              >
+                Search
+              </button>
             </div>
-            
+
           </div>
 
           <div className="w-full overflow-hidden mt-36">
@@ -150,8 +167,13 @@ const CustomerHomePage: React.FC = () => {
           <UserMapComponent />
         </div> */}
       </div>
-    </div>
-  );
+    </div>) // replace with your actual loading component
 };
 
-export default CustomerHomePage;
+
+
+export default Homepage;
+
+
+
+
