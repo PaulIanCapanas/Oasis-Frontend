@@ -4,10 +4,11 @@ import axios, { AxiosError } from 'axios';
 import logo from '../assets/logo.png';
 import image from '../assets/bg.jpeg';
 import backgroundImage from '../assets/bg.jpg';
+import Cookies from 'js-cookie';
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -25,17 +26,19 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.username.trim() || !formData.password.trim()) {
+    if (!formData.email.trim() || !formData.password.trim()) {
       setLoginError('Please enter both username and password');
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/homePage', formData);
+      const response = await axios.post('http://localhost:3000/user/login', formData);
 
       if (response.data.success) {
+        const token = response.data.token;
+        Cookies.set('jwtToken', token);
         setLoginError(null);
-        navigate('/homePage');
+        navigate('/customer-home-page');
       } else {
         setLoginError('Invalid credentials. Please try again.');
       }
@@ -59,53 +62,55 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }} >
-      <div className="flex max-w-screen-2xl">
-        <div className="flex-1 p-10 bg-white rounded-md shadow-md">
-          <div className="mb-6 text-3xl font-semibold text-gray-800">Login</div>
-          <div className="mb-6 text-gray-600">
-            Oasis is totally free to use. Sign up using your email address or username below to get started.
+      <div className="absolute inset-0  backdrop-filter backdrop-blur-sm" >
+        <div className="flex w-5/6 mx-auto mt-20">
+          <div className="flex-1 p-10 bg-white rounded-md shadow-md">
+            <div className="mb-6 text-3xl font-semibold text-gray-800">Login</div>
+            <div className="mb-6 text-gray-600">
+              Oasis is totally free to use. Sign up using your email address or username below to get started.
+            </div>
+            <form>
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Username or Email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border rounded-md"
+                />
+              </div>
+              <div className="mb-6">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border rounded-md"
+                />
+              </div>
+              <div className="mb-6 text-sm text-blue-500">
+                Don't have an account? <a href="/create-user">Register here</a>
+              </div>
+              {loginError && <div className="mb-6 text-red-500">{loginError}</div>}
+              <div>
+                <button
+                  className="w-full py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                  onClick={handleSubmit}
+                >
+                  Login
+                </button>
+              </div>
+            </form>
           </div>
-          <form>
-            <div className="mb-6">
-              <input
-                type="text"
-                placeholder="Username or Email"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border rounded-md"
-              />
-            </div>
-            <div className="mb-6">
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border rounded-md"
-              />
-            </div>
-            <div className="mb-6 text-sm text-blue-500">
-              Don't have an account? <a href="/create-user">Register here</a>
-            </div>
-            {loginError && <div className="mb-6 text-red-500">{loginError}</div>}
-            <div>
-              <button
-                className="w-full py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600"
-                onClick={handleSubmit}
-              >
-                Login
-              </button>
-            </div>
-          </form>
-        </div>
 
-        <div className="flex flex-col items-center justify-center flex-1 p-10 bg-gray-200 rounded-md">
-          <img src={logo} alt="Logo" className="object-cover w-32 h-32 mb-6 rounded-full" />
-          <img src={image} alt="Image" className="object-cover w-full h-64 mb-6 rounded-md" />
-          <div className="text-center text-gray-600">
-            Find comfort away from home, discover your Oasis in every city.
+          <div className="flex flex-col items-center justify-center flex-1 p-10 bg-gray-200 rounded-md">
+            <img src={logo} alt="Logo" className="object-cover w-32 h-32 mb-6 rounded-full" />
+            <img src={image} alt="Image" className="object-cover w-full h-64 mb-6 rounded-md" />
+            <div className="text-center text-gray-600">
+              Find comfort away from home, discover your Oasis in every city.
+            </div>
           </div>
         </div>
       </div>

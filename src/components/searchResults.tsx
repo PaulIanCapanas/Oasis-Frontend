@@ -1,43 +1,92 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "../App.css";
-import { useNavigate, NavigateFunction, useParams } from "react-router-dom";
+import { useNavigate, NavigateFunction } from "react-router-dom";
+import CustomerHomeNav from "./CustomerHomeNav";
 
 const ResultsPage = () => {
-  const [searchLocation, setSearchLocation] = useState('');
-  const [searchBudget, setSearchBudget] = useState('');
-  const navigate = useNavigate() as NavigateFunction;
-  const { id } = useParams();
+    const [searchLocation, setSearchLocation] = useState('');
+    const [searchBudget, setSearchBudget] = useState('');
+    const navigate = useNavigate() as NavigateFunction;
 
-  const handleResult = async () => {
-    try {
-      const response = await axios.post('http://localhost:3000/building/get-buildings/' + id);
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+    const locationData = [
+        {
+            title: "Location 1",
+            image: "src/assets/testImages/pic1.jpeg",
+            description: "A beautiful place with great amenities.",
+        },
+        {
+            title: "Location 2",
+            image: "src/assets/testImages/pic2.jpeg",
+            description: "A peaceful retreat for your stay.",
+        },
+        {
+            title: "Location 3",
+            image: "src/assets/testImages/pic3.jpeg",
+            description: "A peaceful retreat for your stay.",
+        },
+        {
+            title: "Location 4",
+            image: "src/assets/testImages/pic4.jpeg",
+            description: "A peaceful retreat for your stay.",
+        },
+        {
+            title: "Location 2",
+            image: "src/assets/testImages/pic5.jpeg",
+            description: "A peaceful retreat for your stay.",
+        },
+        {
+            title: "Location 5",
+            image: "src/assets/testImages/pic6.jpeg",
+            description: "A peaceful retreat for your stay.",
+        },
+        {
+            title: "Location 6",
+            image: "src/assets/testImages/pic1.jpeg",
+            description: "A peaceful retreat for your stay.",
+        },
+        {
+            title: "Location 6",
+            image: "path/to/image2.jpg",
+            description: "A peaceful retreat for your stay.",
+        },
+    ];
 
-  return (
-    <>
-      <nav className="navbar">
-        <h1 className="navbar-title"><a className="navbarTitle" href="/homePage">Oasis</a></h1>
-        <ul className="nav-list">
-          <li className="nav-item"><a href="/">Home</a></li>
-          <li className="nav-item"><a href="/about">About</a></li>
-          <li className="nav-item"><a href="/services">Services</a></li>
-          <li className="nav-item"><a href="/contact">Contact</a></li>
-          <li className="logout"><a href="/login">Logout</a></li>
-        </ul>
-      </nav>
-      <body>
-        <div>
-          <button onClick={handleResult}>Click meh!!</button>
-        </div>
-        <div className="textResults">SEARCH RESULTS</div>
-      </body>
-    </>
-  );
+    const handleSearch = () => {
+        navigate('/results');
+    };
+
+    const handleLocationClick = (location: any) => {
+        navigate('/description')
+    };
+
+    return (
+        <>
+            <CustomerHomeNav />
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="p-8 bg-white rounded-md shadow-md">
+                    <h1 className="mb-4 text-3xl font-semibold text-gray-800">Results</h1>
+                    <div className="flex flex-wrap">
+                        {locationData.map((location, index) => (
+                            <div
+                                key={index}
+                                className="mb-4 mr-4 p-4 bg-gray-200 rounded-md hover:bg-gray-300 cursor-pointer"
+                                onClick={() => handleLocationClick(location)}
+                            >
+                                <img
+                                    src={location.image}
+                                    alt={`Location ${index + 1}`}
+                                    className="mb-2 w-full h-32 object-cover rounded-md"
+                                />
+                                <div className="text-sm font-semibold">{location.title}</div>
+                                <div className="text-xs text-gray-600">{location.description}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default ResultsPage;
