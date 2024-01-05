@@ -3,12 +3,9 @@ import { useNavigate } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
 import UserMapComponent from "./userMapComponent";
 import background from "../assets/bg.png";
-import { useTokenValidation } from './AuthValid/validToken';
+import { useTokenValidation } from "./AuthValid/validToken";
 import BarGraph from "./barGraph";
 import GeoServices from "./map/GeoServices";
-
-
-
 
 interface Feature {
   title: string;
@@ -49,8 +46,6 @@ const features: Feature[] = [
   },
 ];
 
-
-
 const Homepage: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState<string>("");
   const [searchBudget, setSearchBudget] = useState<string>("");
@@ -61,20 +56,25 @@ const Homepage: React.FC = () => {
 
   const [isPopupOpen, setPopupOpen] = useState(false);
 
-  const togglePopup = () => {
+  const togglePopupMap = () => {
     setPopupOpen(!isPopupOpen);
   };
-
+  const togglePopupBar = () => {
+    setPopupOpen(!isPopupOpen);
+  };
 
   useEffect(() => {
     async function loadAutocomplete() {
       const geocoder = new GeoServices();
       const google = await geocoder.getBackingInstance().load();
-      new google.maps.places.Autocomplete(searchBoxRef.current as unknown as HTMLInputElement);
+      new google.maps.places.Autocomplete(
+        searchBoxRef.current as unknown as HTMLInputElement
+      );
     }
 
     loadAutocomplete();
-  }), [];
+  }),
+    [];
 
   const handleSearch = () => {
     const geocoder = new GeoServices();
@@ -92,9 +92,11 @@ const Homepage: React.FC = () => {
     return <div>Invalid token</div>; // Or redirect to login page
   }
 
-
   return (
-    <div className="relative h-screen bg-center bg-cover" style={{ backgroundImage: `url("${background}")` }}>
+    <div
+      className="relative h-screen bg-center bg-cover"
+      style={{ backgroundImage: `url("${background}")` }}
+    >
       <div className="absolute inset-0 backdrop-filter backdrop-blur-sm">
         {/* Your existing code */}
         <CustomerHomeNav />
@@ -105,18 +107,24 @@ const Homepage: React.FC = () => {
           </div>
 
           <p className="text-lg">
-            Discover comfort, safety, and community at Oasis Boarding House. We provide a serene and welcoming environment for your stay.
+            Discover comfort, safety, and community at Oasis Boarding House. We
+            provide a serene and welcoming environment for your stay.
           </p>
           <div className="flex items-center w-full mb-4">
-            {/* Image inside the search bar */}
-
             <div className="flex items-center justify-center w-full">
               <div className="relative">
+                <img
+                  src="/src/assets/bargraph.png"
+                  alt="Left Icon"
+                  className="absolute mt-2 w-5 h-5"
+                  onClick={togglePopupBar}
+                  style={{ cursor: "pointer" }}
+                />
                 <input
                   ref={searchBoxRef}
                   type="text"
-                  style={{ width: '800px' }}
-                  className="px-4 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  style={{ width: "800px" }}
+                  className="px-5 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                   placeholder="Enter location or hotel name"
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
@@ -125,8 +133,8 @@ const Homepage: React.FC = () => {
                   src="/src/assets/maps-icon.png"
                   alt="Map Icon"
                   className="absolute bottom-2 right-2 mt-2 w-5 h-7 cursor-pointer"
-                  onClick={togglePopup}
-                  style={{ cursor: 'pointer' }}
+                  onClick={togglePopupMap}
+                  style={{ cursor: "pointer" }}
                 />
               </div>
               <select
@@ -151,12 +159,27 @@ const Homepage: React.FC = () => {
           </div>
           {isPopupOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-
               <div className="bg-white p-8 rounded-md max-w-[690px] mx-auto w-5/6 h-[90vh]">
-                <button onClick={togglePopup} className=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                <button
+                  onClick={togglePopupMap}
+                  className=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                >
                   Close
                 </button>
                 <UserMapComponent />
+              </div>
+            </div>
+          )}
+          {isPopupOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-md max-w-[690px] mx-auto w-5/6 h-[90vh]">
+                <button
+                  onClick={togglePopupMap}
+                  className=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                >
+                  Close
+                </button>
+                <BarGraph />
               </div>
             </div>
           )}
@@ -192,10 +215,4 @@ const Homepage: React.FC = () => {
   // replace with your actual loading component
 };
 
-
-
 export default Homepage;
-
-
-
-
