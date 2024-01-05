@@ -63,7 +63,7 @@ const BuildingCreator = () => {
                     Add Attachments
                   </button>
                   <div className='pt-5 pb-5'></div>
-                  <button className='top-20  bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none'>
+                  <button onClick={handleSubmit} className='top-20  bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none'>
                     Register Now!
                   </button>
                 </div>

@@ -4,7 +4,8 @@ import "../App.css";
 import logo from '../assets/logo.png';
 import image from '../assets/bg.jpeg';
 import backgroundImage from '../assets/bg.jpg';
-import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const SignupPage = () => {
@@ -26,19 +27,20 @@ const SignupPage = () => {
     };
     const [signUpError, setSignUpError] = useState<string | null>(null);
 
-    const navigate = useNavigate() as NavigateFunction;
+    const navigate = useNavigate();
 
 
     const handleSubmit = async () => {
         try {
+            navigate('/login');      
             const response = await axios.post('http://localhost:3000/user/register', formData);
-            
+            console.log(response.data.success)
             if (response.data.success) {
                 console.log('Server response:', response.data);
                 console.log('SignUp succesful!');
                 setSignUpError(null);
-                navigate("/login"); 
-            } else{
+                navigate('/login');      
+                  } else{
                 setSignUpError('Invalid credentials. Please try again.');
             }
         } catch (error: any) {
