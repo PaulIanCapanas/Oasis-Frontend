@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
+import UserMapComponent from "./userMapComponent";
 import background from "../assets/bg.png";
 import { useTokenValidation } from './AuthValid/validToken'; 
 import BarGraph from "./barGraph";
+import GeoServices from "./map/GeoServices";
+
+
 
 
 interface Feature {
@@ -50,13 +54,33 @@ const features: Feature[] = [
 const Homepage: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState<string>("");
   const [searchBudget, setSearchBudget] = useState<string>("");
+  const searchBoxRef = useRef(null);
+
   const navigate = useNavigate();
   const [chartData, setChartData] = useState({});
 
 
  
 
+
+  useEffect(() => {
+    async function loadAutocomplete() {
+      const geocoder = new GeoServices();
+      const google = await geocoder.getBackingInstance().load();
+      new google.maps.places.Autocomplete(searchBoxRef.current as unknown as HTMLInputElement);
+    }
+
+    loadAutocomplete();
+  }), [];
+
   const handleSearch = () => {
+    const geocoder = new GeoServices();
+    const google = geocoder.getBackingInstance();
+
+    if (!place.geometry) {
+
+    }
+
     navigate("/results");
   };
   const { tokenValid, decodedToken } = useTokenValidation();
@@ -90,6 +114,7 @@ const Homepage: React.FC = () => {
           <div className="flex items-center w-full mb-4">
             <div className="flex items-center justify-center w-full">
               <input
+                ref={searchBoxRef}
                 type="text"
                 className="w-1/2 px-4 py-2 text-black border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500"
                 placeholder="Enter location or hotel name"
@@ -142,9 +167,11 @@ const Homepage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div>
-          <BarGraph/>
-        </div>
+
+        {/* <div>
+          <UserMapComponent />
+        </div> */}
+
       </div>
     </div>) // replace with your actual loading component
 };
