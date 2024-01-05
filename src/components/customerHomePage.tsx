@@ -54,13 +54,14 @@ const Homepage: React.FC = () => {
   const navigate = useNavigate();
   const [chartData, setChartData] = useState({});
 
-  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isMapPopupOpen, setIsMapPopupOpen] = useState(false);
+  const [isBarPopupOpen, setIsBarPopupOpen] = useState(false);
 
   const togglePopupMap = () => {
-    setPopupOpen(!isPopupOpen);
+    setIsMapPopupOpen(!isMapPopupOpen);
   };
   const togglePopupBar = () => {
-    setPopupOpen(!isPopupOpen);
+    setIsBarPopupOpen(!isBarPopupOpen);
   };
 
   useEffect(() => {
@@ -157,7 +158,7 @@ const Homepage: React.FC = () => {
               </button>
             </div>
           </div>
-          {isPopupOpen && (
+          {isMapPopupOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-md max-w-[690px] mx-auto w-5/6 h-[90vh]">
                 <button
@@ -170,11 +171,11 @@ const Homepage: React.FC = () => {
               </div>
             </div>
           )}
-          {isPopupOpen && (
+          {isBarPopupOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-md max-w-[690px] mx-auto w-5/6 h-[90vh]">
                 <button
-                  onClick={togglePopupMap}
+                  onClick={togglePopupBar}
                   className=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
                 >
                   Close
