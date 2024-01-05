@@ -63,7 +63,6 @@ const Homepage: React.FC = () => {
 
   const togglePopup = () => {
     setPopupOpen(!isPopupOpen);
-    <UserMapComponent />
   };
 
 
@@ -78,6 +77,9 @@ const Homepage: React.FC = () => {
   }), [];
 
   const handleSearch = () => {
+    const geocoder = new GeoServices();
+    const google = geocoder.getBackingInstance();
+
     navigate("/results");
   };
   const { tokenValid, decodedToken } = useTokenValidation();
@@ -109,16 +111,24 @@ const Homepage: React.FC = () => {
             {/* Image inside the search bar */}
 
             <div className="flex items-center justify-center w-full">
-              <input
-                ref={searchBoxRef}
-                type="text"
-                className="w-1/2 px-4 py-2 text-black border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500"
-                placeholder="Enter location or hotel name"
-                value={searchLocation}
-                onChange={(e) => setSearchLocation(e.target.value)}
-              />
-              <img src="/src/assets/maps-icon.png" alt="Map Icon" className="mr-2 w-6 h-8"
-                onClick={togglePopup} style={{ cursor: 'pointer' }} />
+              <div className="relative">
+                <input
+                  ref={searchBoxRef}
+                  type="text"
+                  style={{ width: '800px' }}
+                  className="px-4 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Enter location or hotel name"
+                  value={searchLocation}
+                  onChange={(e) => setSearchLocation(e.target.value)}
+                />
+                <img
+                  src="/src/assets/maps-icon.png"
+                  alt="Map Icon"
+                  className="absolute bottom-2 right-2 mt-2 w-5 h-7 cursor-pointer"
+                  onClick={togglePopup}
+                  style={{ cursor: 'pointer' }}
+                />
+              </div>
               <select
                 className="p-2 text-blue-500 border border-blue-500 rounded-r-md focus:outline-none"
                 value={searchBudget}
@@ -141,11 +151,12 @@ const Homepage: React.FC = () => {
           </div>
           {isPopupOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-8 rounded-md max-w-[600px] mx-auto w-5/6">
-                <UserMapComponent />
-                <button onClick={togglePopup} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+
+              <div className="bg-white p-8 rounded-md max-w-[690px] mx-auto w-5/6 h-[90vh]">
+                <button onClick={togglePopup} className=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                   Close
                 </button>
+                <UserMapComponent />
               </div>
             </div>
           )}

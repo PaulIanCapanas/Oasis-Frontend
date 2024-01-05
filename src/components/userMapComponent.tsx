@@ -93,14 +93,14 @@ export default function UserMapComponent() {
 
   return (
     <div className="relative h-screen">
-      <div style={{ height: "100%", width: "100%" }} ref={mapRef}>
-        {/* Map content */}
+      <div style={{ height: "70%", width: "100%" }} ref={mapRef}>
       </div>
       <div className="absolute top-0 left-0 right-0 text-center p-4">
         <input
+          id="search-box"
           type="text"
           placeholder="Search places..."
-          className="p-2 border border-gray-300 rounded-md"
+          className="p-2 border border-gray-300 rounded-md text-pink-500"
         />
       </div>
     </div>
