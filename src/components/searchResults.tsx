@@ -3,6 +3,7 @@ import axios from 'axios';
 import "../App.css";
 import { useNavigate, NavigateFunction } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
+import backgroundImage from '../assets/bg.jpg';
 
 const ResultsPage = () => {
     const [searchLocation, setSearchLocation] = useState('');
@@ -63,8 +64,8 @@ const ResultsPage = () => {
     return (
         <>
             <CustomerHomeNav />
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="p-8 bg-white rounded-md shadow-md">
+            <div className="flex items-center justify-center min-h-screen"  style={{ backgroundImage: `url("${backgroundImage}")` }}>
+                <div className="p-8 bg-white-500 rounded-md shadow-md">
                     <h1 className="mb-4 text-3xl font-semibold text-gray-800">Results</h1>
                     <div className="flex flex-wrap">
                         {locationData.map((location, index) => (

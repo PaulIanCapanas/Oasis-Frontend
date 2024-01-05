@@ -44,7 +44,6 @@ export default function BuildingMapComponent() {
             position: event.latLng,
             map: map
           });
-          navigate(`/results/${response.data.id.id}`)
         }).catch((error) => {
           console.log(error)
         })
