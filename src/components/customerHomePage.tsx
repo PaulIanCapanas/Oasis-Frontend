@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
 import background from "../assets/bg.png";
-import { verifyToken } from "../../../Oasis-Backend/util/tokenValid"
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
 import { useTokenValidation } from './AuthValid/validToken'; // Adjust the import path
 
 interface Feature {
@@ -59,30 +56,6 @@ const Homepage: React.FC = () => {
   const handleSearch = () => {
     navigate("/results");
   };
-  // const [tokenValid, setTokenValid] = useState<boolean | null>(null);
-  // useEffect(() => {
-  //   const token = Cookies.get('jwtToken');
-  //   if (token) {
-  //     try {
-  //       const decoded = jwtDecode(token); // Add this line
-  //       setDecodedToken(decoded);
-  //       setTokenValid(true);
-  //     } catch (error) {
-  //       console.error('Invalid token', error);
-  //       setTokenValid(false);
-  //     }
-  //   } else {
-  //     setTokenValid(false);
-  //   }
-  // }, []);
-
-  // if (tokenValid === null) {
-  //   return <div>Loading...</div>; // Or some loading spinner
-  // }
-
-  // if (!tokenValid) {
-  //   return <div>Invalid token</div>; // Or redirect to login page
-  // }
   const { tokenValid, decodedToken } = useTokenValidation();
   
   if (tokenValid === null) {
