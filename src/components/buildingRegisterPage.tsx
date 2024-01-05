@@ -49,7 +49,8 @@ const BuildingCreator = () => {
                   <input type="text" id='name' placeholder='Name' className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
                   <input type="text" id='description' placeholder='Description' className="mt-2 w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
                   <div className="relative flex items-center"> {/* Wrap Location input and image in a flex container */}
-                    <input type="location" name="Location" id="location" placeholder='Location' className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+                    <input type="location" name="Longitude" id="longitude" placeholder='Longitude' className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+                    <input type="location" name="Latitude" id="latitude" placeholder='Latitude' className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
                     <img
                       src="/src/assets/maps-icon.png"
                       alt="Map Icon"

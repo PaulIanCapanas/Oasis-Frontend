@@ -48,6 +48,7 @@ export default function BuildingMapComponent() {
           console.log(error)
         })
       });
+      const handleResaults = async() =>
 
       searchBox.addListener('places_changed', () => {
         const places = searchBox.getPlaces();
