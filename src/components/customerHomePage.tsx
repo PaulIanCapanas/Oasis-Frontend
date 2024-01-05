@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
 import UserMapComponent from "./userMapComponent";
 import background from "../assets/bg.png";
-import { useTokenValidation } from './AuthValid/validToken'; 
+import { useTokenValidation } from './AuthValid/validToken';
 import BarGraph from "./barGraph";
 import GeoServices from "./map/GeoServices";
 
@@ -59,8 +59,12 @@ const Homepage: React.FC = () => {
   const navigate = useNavigate();
   const [chartData, setChartData] = useState({});
 
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
- 
+  const togglePopup = () => {
+    setPopupOpen(!isPopupOpen);
+    <UserMapComponent />
+  };
 
 
   useEffect(() => {
@@ -84,7 +88,7 @@ const Homepage: React.FC = () => {
     navigate("/results");
   };
   const { tokenValid, decodedToken } = useTokenValidation();
-  
+
   if (tokenValid === null) {
     return <div>Loading...</div>; // Or some loading spinner
   }
@@ -95,11 +99,9 @@ const Homepage: React.FC = () => {
 
 
   return (
-    <div
-      className="relative h-screen bg-center bg-cover"
-      style={{ backgroundImage: `url("${background}")` }}
-    >
+    <div className="relative h-screen bg-center bg-cover" style={{ backgroundImage: `url("${background}")` }}>
       <div className="absolute inset-0 backdrop-filter backdrop-blur-sm">
+        {/* Your existing code */}
         <CustomerHomeNav />
         <div className="flex flex-col items-center justify-center h-full p-8 mt-8 text-white">
           <div className="p-6 mb-8 text-center rounded-md bg-opacity-80">
@@ -108,10 +110,11 @@ const Homepage: React.FC = () => {
           </div>
 
           <p className="text-lg">
-            Discover comfort, safety, and community at Oasis Boarding House. We
-            provide a serene and welcoming environment for your stay.
+            Discover comfort, safety, and community at Oasis Boarding House. We provide a serene and welcoming environment for your stay.
           </p>
           <div className="flex items-center w-full mb-4">
+            {/* Image inside the search bar */}
+
             <div className="flex items-center justify-center w-full">
               <input
                 ref={searchBoxRef}
@@ -121,6 +124,8 @@ const Homepage: React.FC = () => {
                 value={searchLocation}
                 onChange={(e) => setSearchLocation(e.target.value)}
               />
+              <img src="/src/assets/maps-icon.png" alt="Map Icon" className="mr-2 w-6 h-8"
+                onClick={togglePopup} style={{ cursor: 'pointer' }} />
               <select
                 className="p-2 text-blue-500 border border-blue-500 rounded-r-md focus:outline-none"
                 value={searchBudget}
@@ -140,8 +145,17 @@ const Homepage: React.FC = () => {
                 Search
               </button>
             </div>
-
           </div>
+          {isPopupOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-md max-w-[600px] mx-auto w-5/6">
+                <UserMapComponent />
+                <button onClick={togglePopup} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
 
           <div className="w-full overflow-hidden mt-36">
             <div
@@ -167,13 +181,11 @@ const Homepage: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* <div>
-          <UserMapComponent />
-        </div> */}
-
+        <div>{/* Additional content or components */}</div>
       </div>
-    </div>) // replace with your actual loading component
+    </div>
+  );
+  // replace with your actual loading component
 };
 
 

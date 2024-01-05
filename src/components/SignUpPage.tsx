@@ -122,7 +122,7 @@ const SignupPage = () => {
                                     />
                                 </div>
                                 <div className="mb-6 text-sm text-blue-500">
-                                    Already have an account? <a href="/create-user">Login here</a>
+                                    Already have an account? <a href="/login">Login here</a>
                                 </div>
                                 <div className="login">
                                     <button className="w-full py-0.5 text-white bg-blue-500 rounded-md hover:bg-blue-600" onClick={handleSubmit}>
