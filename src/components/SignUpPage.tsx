@@ -4,6 +4,8 @@ import "../App.css";
 import logo from '../assets/logo.png';
 import image from '../assets/bg.jpeg';
 import backgroundImage from '../assets/bg.jpg';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
+
 
 const SignupPage = () => {
     const [formData, setFormData] = useState({
@@ -22,12 +24,23 @@ const SignupPage = () => {
             [e.target.name]: e.target.value,
         });
     };
+    const [signUpError, setSignUpError] = useState<string | null>(null);
+
+    const navigate = useNavigate() as NavigateFunction;
+
 
     const handleSubmit = async () => {
         try {
             const response = await axios.post('http://localhost:3000/user/register', formData);
-            console.log('Server response:', response.data);
-            console.log('SignUp succesful!')
+            
+            if (response.data.success) {
+                console.log('Server response:', response.data);
+                console.log('SignUp succesful!');
+                setSignUpError(null);
+                navigate("/login"); 
+            } else{
+                setSignUpError('Invalid credentials. Please try again.');
+            }
         } catch (error: any) {
             console.log('Axios response:', error.response);
         }
@@ -69,7 +82,7 @@ const SignupPage = () => {
                                         onChange={handleChange}
                                         className="w-full px-4 py-0.5 border rounded-md"
                                     />
-                                </div>
+                                </div>  
                                 <div className="mb-6">
                                     <input
                                         type="text"
