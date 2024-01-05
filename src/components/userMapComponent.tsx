@@ -33,19 +33,45 @@ export default function UserMapComponent() {
       });
 
       map.addListener('click', async (event: any) => {
-        const response = await axios.post('http://localhost:3000/user/set-user-location', {
-          longitude: event.latLng.lng(),
-          latitude: event.latLng.lat(),
+        console.log(event.latLng.lng(), event.latLng.lat())
+        const lat = event.latLng.lat().toFixed(5)
+        const lng = event.latLng.lng().toFixed(5)
+        try {
+          const response = await axios.post('http://localhost:3000/user/get-user-location', {
+            lat,
+            lng
+          })
+          console.log(response)
+        } catch(err) {
+          console.error(err)
+        }
+        
+        // .then((response) => {
+        //   console.log(response.data)
+        //   const marker = new google.maps.Marker({
+        //     position: event.latLng,
+        //     map: map
+        //   });
+        //   navigate(`/results/${response.data.id.id}`)
+        // }).catch((error) => {
+        //   console.log(error)
+        // })
+
+        console.log(event)
+        const response = await axios.post('http://localhost:3000/user/get-user-location', {
+          lng: event.latLng.lng(),
+          lat: event.latLng.lat(),
         }).then((response) => {
           console.log(response.data)
           const marker = new google.maps.Marker({
             position: event.latLng,
             map: map
           });
-          navigate(`/results/${response.data.id.id}`)
+          // navigate(`/results/${response.data.id.id}`)
         }).catch((error) => {
           console.log(error)
         })
+        console.log(response)
       });
 
       searchBox.addListener('places_changed', () => {
@@ -81,15 +107,6 @@ export default function UserMapComponent() {
 
     geoCode().catch(console.error);
   }, []);
-
-  const testFunc = async () => {
-    const response = await axios.get('http://localhost:3000/building/create-building')
-    if (!response.data) {
-      return new Error("No data")
-    }
-    const data = response.data
-    return data
-  }
 
   return (
     <div className="relative h-screen">

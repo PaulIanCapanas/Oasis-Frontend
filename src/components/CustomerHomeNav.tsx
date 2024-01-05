@@ -44,8 +44,8 @@ const handleLogout = () => {
             <Link to="/messages" className="block">
               Messages
             </Link>
-            <Link to="/bookings" className="block">
-              Bookings
+            <Link to="/building-register" className="block">
+              Listings
             </Link>
             <div className="block logout">
               <button onClick={handleLogout}>Logout</button>
