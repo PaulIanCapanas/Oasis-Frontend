@@ -13,7 +13,6 @@ const SignupPage = () => {
         password: '',
         phone_number: '',
         age: '',
-        user_type: '',
     });
 
 
@@ -107,16 +106,6 @@ const SignupPage = () => {
                                         placeholder="Age"
                                         name="age"
                                         value={formData.age}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-0.5 border rounded-md"
-                                    />
-                                </div>
-                                <div className="mb-6">
-                                    <input
-                                        type="text"
-                                        placeholder="User Type"
-                                        name="user_type"
-                                        value={formData.user_type}
                                         onChange={handleChange}
                                         className="w-full px-4 py-0.5 border rounded-md"
                                     />

@@ -56,6 +56,22 @@ export default function UserMapComponent() {
         // }).catch((error) => {
         //   console.log(error)
         // })
+
+        console.log(event)
+        const response = await axios.post('http://localhost:3000/user/get-user-location', {
+          lng: event.latLng.lng(),
+          lat: event.latLng.lat(),
+        }).then((response) => {
+          console.log(response.data)
+          const marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+          // navigate(`/results/${response.data.id.id}`)
+        }).catch((error) => {
+          console.log(error)
+        })
+        console.log(response)
       });
 
       searchBox.addListener('places_changed', () => {

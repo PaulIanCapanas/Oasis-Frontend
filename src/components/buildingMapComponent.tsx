@@ -84,15 +84,6 @@ export default function BuildingMapComponent() {
     geoCode().catch(console.error);
   }, []);
 
-  const testFunc = async () => {
-    const response = await axios.get('http://localhost:3000/building/create-building')
-    if (!response.data) {
-      return new Error("No data")
-    }
-    const data = response.data
-    return data
-  }
-
   return (
     <div>
       <input id="search-box" type="text" placeholder="Search places..." />
