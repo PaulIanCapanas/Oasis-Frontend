@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
 import UserMapComponent from "./userMapComponent";
 import background from "../assets/bg.png";
+import { useTokenValidation } from './AuthValid/validToken'; 
+import BarGraph from "./barGraph";
 import GeoServices from "./map/GeoServices";
-import { useTokenValidation } from './AuthValid/validToken'; // Adjust the import path
+
+
 
 
 interface Feature {
@@ -54,9 +57,10 @@ const Homepage: React.FC = () => {
   const searchBoxRef = useRef(null);
 
   const navigate = useNavigate();
-  // const [decodedToken, setDecodedToken] = useState<any | null>(null);
-    // const [tokenValid, setTokenValid] = useState<boolean | null>(null);
+  const [chartData, setChartData] = useState({});
 
+
+ 
 
 
   useEffect(() => {
@@ -163,9 +167,11 @@ const Homepage: React.FC = () => {
             </div>
           </div>
         </div>
+
         {/* <div>
           <UserMapComponent />
         </div> */}
+
       </div>
     </div>) // replace with your actual loading component
 };
