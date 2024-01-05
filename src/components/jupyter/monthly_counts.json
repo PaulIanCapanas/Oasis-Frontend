@@ -1,0 +1,48 @@
+{"data_mock":
+[
+    {
+        "month": "January",
+        "count": 5
+    },
+    {
+        "month": "February",
+        "count": 6
+    },
+    {
+        "month": "March",
+        "count": 3
+    },
+    {
+        "month": "April",
+        "count": 16
+    },
+    {
+        "month": "May",
+        "count": 14
+    },
+    {
+        "month": "June",
+        "count": 14
+    },
+    {
+        "month": "July",
+        "count": 26
+    },
+    {
+        "month": "August",
+        "count": 18
+    },
+    {
+        "month": "October",
+        "count": 2
+    },
+    {
+        "month": "November",
+        "count": 5
+    },
+    {
+        "month": "December",
+        "count": 1
+    }
+]
+}

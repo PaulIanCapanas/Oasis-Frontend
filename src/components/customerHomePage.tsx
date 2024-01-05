@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
 import background from "../assets/bg.png";
-import { useTokenValidation } from './AuthValid/validToken'; // Adjust the import path
+import { useTokenValidation } from './AuthValid/validToken'; 
+import BarGraph from "./barGraph";
+
 
 interface Feature {
   title: string;
@@ -49,9 +51,10 @@ const Homepage: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState<string>("");
   const [searchBudget, setSearchBudget] = useState<string>("");
   const navigate = useNavigate();
-  // const [decodedToken, setDecodedToken] = useState<any | null>(null);
-    // const [tokenValid, setTokenValid] = useState<boolean | null>(null);
+  const [chartData, setChartData] = useState({});
 
+
+ 
 
   const handleSearch = () => {
     navigate("/results");
@@ -138,6 +141,9 @@ const Homepage: React.FC = () => {
               ))}
             </div>
           </div>
+        </div>
+        <div>
+          <BarGraph/>
         </div>
       </div>
     </div>) // replace with your actual loading component
