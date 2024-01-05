@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuBar from "../assets/menubar.png";
+import Cookies from 'js-cookie';
 import Logo from "../assets/logo.png"
 
+
 const CustomerHomeNav: React.FC = () => {
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  };
+  };  
 
+const handleLogout = () => {
+  Cookies.remove('jwtToken');
+    navigate("/login");
+}
   return (
     <nav className="fixed w-full flex items-center justify-between p-4 bg-gray-800">
       <div className="pr-4">
@@ -41,7 +48,7 @@ const CustomerHomeNav: React.FC = () => {
               Bookings
             </Link>
             <div className="block logout">
-              <Link to="/login">Logout</Link>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>

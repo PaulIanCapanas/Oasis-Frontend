@@ -7,9 +7,11 @@ import UserType from "./components/pickUserTypePage"
 import ImageUploadForm from "./components/ImageUploadForm"
 import Description from "./components/descriptionPage";
 import UserMapComponent from "./components/userMapComponent";
+import { useState } from "react";
 
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   return (
     <BrowserRouter>
       <Routes>

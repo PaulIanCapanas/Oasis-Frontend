@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios';
 import logo from '../assets/logo.png';
 import image from '../assets/bg.jpeg';
 import backgroundImage from '../assets/bg.jpg';
+import Cookies from 'js-cookie';
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -34,8 +35,10 @@ const LoginPage: React.FC = () => {
       const response = await axios.post('http://localhost:3000/user/login', formData);
 
       if (response.data.success) {
+        const token = response.data.token;
+        Cookies.set('jwtToken', token);
         setLoginError(null);
-        navigate('/homePage');
+        navigate('/customer-home-page');
       } else {
         setLoginError('Invalid credentials. Please try again.');
       }

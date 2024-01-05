@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.2",
+    "@types/jwt-decode": "^3.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1"
@@ -23,6 +25,7 @@
     "@types/express": "^4.17.21",
     "@types/google.maps": "^3.54.10",
     "@types/googlemaps": "^3.43.3",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.17",
     "@types/react-router-dom": "^5.3.3",
