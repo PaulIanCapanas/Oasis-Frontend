@@ -6,35 +6,35 @@ const ImageUploadForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState(null);
 
+  const userEmail = localStorage.getItem('userEmail');
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files){
-      return
+    if (!e.target.files) {
+      return;
     }
-    setImage(e.target.files[0])
+    setImage(e.target.files[0]);
   };
 
   const handleImageUpload = async () => {
     try {
-      
-      
-
       const formData = new FormData();
 
-      formData.append('image', image)
+      formData.append('image', image);
 
-      console.log(image)
+      console.log(image);
 
       const response = await axios.post('http://localhost:3000/upload-image/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        params: {
+          userEmail: userEmail,
+        },
       });
 
       console.log('File uploaded successfully:', response.data);
 
-      // Set the uploaded image URL for display
       setImageUrl(response.data.file.path);
-      
     } catch (error) {
       console.error('Error uploading files:', error);
       setError('Error uploading files. Please try again.');
@@ -52,7 +52,6 @@ const ImageUploadForm: React.FC = () => {
         </div>
       )}
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      <img src="../../../Oasis-Backend/uploaded-images/image-file_1704475497470.jpg" alt="" />
     </div>
   );
 };

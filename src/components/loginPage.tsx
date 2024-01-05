@@ -37,7 +37,6 @@ const LoginPage: React.FC = () => {
       if (response.data.success) {
         const token = response.data.token;
         Cookies.set('jwtToken', token);
-        // Cookies.set('user', formData.email);
 
         const userEmail = formData.email;
         localStorage.setItem('userEmail', userEmail);
@@ -67,7 +66,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }} >
-      <div className="absolute inset-0  backdrop-filter backdrop-blur-sm" >
+      <div className="absolute inset-0 backdrop-filter backdrop-blur-sm" >
         <div className="flex w-5/6 mx-auto mt-20">
           <div className="flex-1 p-10 bg-white rounded-md shadow-md">
             <div className="mb-6 text-3xl font-semibold text-gray-800">Login</div>
