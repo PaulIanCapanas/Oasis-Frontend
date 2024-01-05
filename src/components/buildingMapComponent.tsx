@@ -3,7 +3,7 @@ import GeoServices from './map/GeoServices';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function UserMapComponent() {
+export default function BuildingMapComponent() {
   const mapRef = useRef(null);
   const navigate = useNavigate();
 
@@ -33,7 +33,9 @@ export default function UserMapComponent() {
       });
 
       map.addListener('click', async (event: any) => {
-        const response = await axios.post('http://localhost:3000/user/set-user-location', {
+        const response = await axios.post('http://localhost:3000/building/create-building', {
+          name: 'meh',
+          user_id: 2,
           longitude: event.latLng.lng(),
           latitude: event.latLng.lat(),
         }).then((response) => {
@@ -92,17 +94,9 @@ export default function UserMapComponent() {
   }
 
   return (
-    <div className="relative h-screen">
-      <div style={{ height: "100%", width: "100%" }} ref={mapRef}>
-        {/* Map content */}
-      </div>
-      <div className="absolute top-0 left-0 right-0 text-center p-4">
-        <input
-          type="text"
-          placeholder="Search places..."
-          className="p-2 border border-gray-300 rounded-md"
-        />
-      </div>
+    <div>
+      <input id="search-box" type="text" placeholder="Search places..." />
+      <div style={{ height: "100vh", width: "100%" }} ref={mapRef}></div>
     </div>
   )
 }

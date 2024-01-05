@@ -78,13 +78,6 @@ const Homepage: React.FC = () => {
   }), [];
 
   const handleSearch = () => {
-    const geocoder = new GeoServices();
-    const google = geocoder.getBackingInstance();
-
-    if (!place.geometry) {
-
-    }
-
     navigate("/results");
   };
   const { tokenValid, decodedToken } = useTokenValidation();

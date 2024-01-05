@@ -8,6 +8,7 @@ import ImageUploadForm from "./components/ImageUploadForm"
 import Description from "./components/descriptionPage";
 import UserMapComponent from "./components/userMapComponent";
 import { useState } from "react";
+import BuildingMapComponent from "./components/buildingMapComponent";
 
 
 const App = () => {
@@ -19,7 +20,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/create-user" element={<SignupPage />} />
         <Route path="/customer-home-page" element={<CustomerHomePage/>} />
-        <Route path="/results" element={<ResultsPage/>}/>
+        <Route path="/results/:id" element={<ResultsPage/>}/>
         <Route path="/user-type" element={<UserType/>} />
         <Route path="/description" element={<Description/>} />
         <Route path="/map" element={<UserMapComponent/>}/>
