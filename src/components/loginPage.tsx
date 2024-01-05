@@ -51,7 +51,7 @@ const LoginPage: React.FC = () => {
           setLoginError(responseData.message || 'Login failed');
         } else {
           setLoginError('No response from the server');
-          navigate('/user-type');
+          navigate('/login');
         }
       } else {
         console.error('Error during login:', error);
