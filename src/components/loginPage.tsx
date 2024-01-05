@@ -33,10 +33,15 @@ const LoginPage: React.FC = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/user/login', formData);
-
+  
       if (response.data.success) {
         const token = response.data.token;
         Cookies.set('jwtToken', token);
+        // Cookies.set('user', formData.email);
+
+        const userEmail = formData.email;
+        localStorage.setItem('userEmail', userEmail);
+
         setLoginError(null);
         navigate('/customer-home-page');
       } else {
