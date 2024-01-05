@@ -8,6 +8,7 @@ import ResultsPage from "./components/searchResults"
 import UserType from "./components/pickUserTypePage"
 import ImageUploadForm from "./components/ImageUploadForm"
 import UserMapComponent from "./components/userMapComponent";
+import BuildingMapComponent from "./components/buildingMapComponent";
 
 
 const App = () => {
@@ -19,9 +20,9 @@ const App = () => {
         <Route path="/create-user" element={<SignupPage />} />
         <Route path="/customer-home-page" element={<CustomerHomePage/>} />
         <Route path="/owner-home-page" element={<OwnerHomePage/>} />
-        <Route path="/results" element={<ResultsPage/>}/>
+        <Route path="/results/:id" element={<ResultsPage/>}/>
         <Route path="/user-type" element={<UserType/>} />
-        <Route path="/map" element={<UserMapComponent/>}/>
+        <Route path="/map" element={<BuildingMapComponent/>}/>
         {/* <Route path="/user-page" element={<UserPage/>} />
         <Route path="/chat" element={<ChatPage/>} /> */}
       </Routes>

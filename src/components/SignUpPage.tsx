@@ -8,7 +8,6 @@ const SignupPage = () => {
     password: '',
   });
 
-
   const handleChange = (e: any) => {
     setFormData({
       ...formData,

@@ -3,7 +3,7 @@ import GeoServices from './map/GeoServices';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function UserMapComponent() {
+export default function BuildingMapComponent() {
   const mapRef = useRef(null);
   const navigate = useNavigate();
 
@@ -33,7 +33,9 @@ export default function UserMapComponent() {
       });
 
       map.addListener('click', async (event: any) => {
-        const response = await axios.post('http://localhost:3000/user/set-user-location', {
+        const response = await axios.post('http://localhost:3000/building/create-building', {
+          name: 'meh',
+          user_id: 2,
           longitude: event.latLng.lng(),
           latitude: event.latLng.lat(),
         }).then((response) => {
