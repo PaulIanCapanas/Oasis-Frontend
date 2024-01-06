@@ -13,6 +13,39 @@ interface Feature {
   description: string;
 }
 
+const features: Feature[] = [
+  {
+    title: "Looking for?",
+    content: "Wifi",
+    description: "Boarding houses equipped with wifi",
+  },
+  {
+    title: "For how many?",
+    content: "Number of residents",
+    description: "The number of residents that will be living",
+  },
+  {
+    title: "Meal Options",
+    content: "Meal plans available",
+    description: "Options for meals during the stay",
+  },
+  {
+    title: "Security Measures",
+    content: "24/7 security",
+    description: "Ensuring the safety of residents around the clock",
+  },
+  {
+    title: "Common Areas",
+    content: "Shared spaces",
+    description: "Spaces for socializing and community interaction",
+  },
+  {
+    title: "Laundry Facilities",
+    content: "On-site laundry",
+    description: "Convenient access to laundry services",
+  },
+];
+
 const Homepage: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState<string>("");
   const [coords, setCoords] = useState<{lat: number, lng: number}>({
@@ -25,6 +58,7 @@ const Homepage: React.FC = () => {
   const navigate = useNavigate();
 
   const [isMapPopupOpen, setIsMapPopupOpen] = useState(false);
+  const [isBarPopupOpen, setIsBarPopupOpen] = useState(false);
 
   const togglePopupMap = () => {
     setIsMapPopupOpen(!isMapPopupOpen);
@@ -43,8 +77,29 @@ const Homepage: React.FC = () => {
     }
 
     loadAutocomplete();
-  }),
-    [];
+  }, []);
+
+  useEffect(() => {
+    if (!searchLocation) return;
+
+    const geocoder = new GeoServices();
+    geocoder.getBackingInstance().load().then(g => {
+      const reverse = new g.maps.Geocoder();
+      reverse.geocode({
+        address: searchLocation
+      }).then(r => {
+        if (r.results.length <= 0) {
+          return;
+        }
+        console.log(r);
+        setCoords({lat: r.results[0].geometry.location.lat(), lng: r.results[0].geometry.location.lng() })
+      })
+    });
+  }, [searchLocation]);
+
+  const handleSetLocationFromField = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    setSearchLocation(e.currentTarget.value);
+  }
 
   const handleSearch = () => {
     navigate(`/results/${coords.lat}/${coords.lng}`);
@@ -58,12 +113,6 @@ const Homepage: React.FC = () => {
       lng: parseInt(lng)
     });
   }
-    const geocoder = new GeoServices();
-    const google = geocoder.getBackingInstance();
-
-    navigate("/results");
-  };
-  const { tokenValid, decodedToken } = useTokenValidation();
 
   if (tokenValid === null) {
     return <div>Loading...</div>; // Or some loading spinner
@@ -108,7 +157,7 @@ const Homepage: React.FC = () => {
                   className="px-5 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                   placeholder="Enter location or hotel name"
                   value={searchLocation}
-                  onChange={(e) => setSearchLocation(e.target.value)}
+                  onChange={handleSetLocationFromField}
                 />
                 <img
                   src="/src/assets/maps-icon.png"

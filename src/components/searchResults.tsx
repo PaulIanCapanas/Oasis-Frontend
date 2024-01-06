@@ -35,7 +35,7 @@ const ResultsPage = () => {
     }, [lat, lng])
 
     const handleLocationClick = (id: number) => {
-        navigate('/description/' + id);
+        navigate(`/description/${id}`);
         // alert('BUILDING RESERVED LETS GOOOOO WIIEEEE');
     };
 
