@@ -9,14 +9,14 @@ import backgroundImage from '../assets/bg.jpg';
 const Description = () => {
 
 	const [description, setDescription] = useState<string>('');
-	const building_id = useParams();
+	const {id} = useParams();
 
 	useEffect(() => {
 
 		async function getDescription() {
-			const data = await axios.post(`http://localhost:3000/building/get-building/${building_id}`)
-			console.log(data)
-			setDescription(data.data.description);
+			const data = await axios.post(`http://localhost:3000/building/get-building/${id}`)
+			console.log(data.data.id[0]);
+			setDescription(data.data.id[0].description);
 		}
 
 		getDescription().catch(console.error);
@@ -25,7 +25,7 @@ const Description = () => {
 	return (
 		<>
 			<CustomerHomeNav />
-			<div>
+			<div style={{padding: '8em'}}>
 				{description}
 			</div>
 		</>
