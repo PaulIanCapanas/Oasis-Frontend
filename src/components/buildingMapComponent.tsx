@@ -44,11 +44,11 @@ export default function BuildingMapComponent() {
             position: event.latLng,
             map: map
           });
-          navigate(`/results/${response.data.id.id}`)
         }).catch((error) => {
           console.log(error)
         })
       });
+      const handleResaults = async() =>
 
       searchBox.addListener('places_changed', () => {
         const places = searchBox.getPlaces();
@@ -83,15 +83,6 @@ export default function BuildingMapComponent() {
 
     geoCode().catch(console.error);
   }, []);
-
-  const testFunc = async () => {
-    const response = await axios.get('http://localhost:3000/building/create-building')
-    if (!response.data) {
-      return new Error("No data")
-    }
-    const data = response.data
-    return data
-  }
 
   return (
     <div>

@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import CustomerHomeNav from "./CustomerHomeNav";
 import UserMapComponent from "./userMapComponent";
 import background from "../assets/bg.png";
+import { useTokenValidation } from "./AuthValid/validToken";
+import BarGraph from "./barGraph";
 import GeoServices from "./map/GeoServices";
-import { useTokenValidation } from './AuthValid/validToken'; // Adjust the import path
-
 
 interface Feature {
   title: string;
@@ -46,34 +46,53 @@ const features: Feature[] = [
   },
 ];
 
-
-
 const Homepage: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState<string>("");
+  const [coords, setCoords] = useState<{lat: number, lng: number}>({
+    lat: 0,
+    lng: 0
+  });
   const [searchBudget, setSearchBudget] = useState<string>("");
   const searchBoxRef = useRef(null);
 
   const navigate = useNavigate();
-  // const [decodedToken, setDecodedToken] = useState<any | null>(null);
-    // const [tokenValid, setTokenValid] = useState<boolean | null>(null);
 
+  const [isMapPopupOpen, setIsMapPopupOpen] = useState(false);
+  const [isBarPopupOpen, setIsBarPopupOpen] = useState(false);
 
+  const togglePopupMap = () => {
+    setIsMapPopupOpen(!isMapPopupOpen);
+  };
+  const togglePopupBar = () => {
+    setIsBarPopupOpen(!isBarPopupOpen);
+  };
 
   useEffect(() => {
     async function loadAutocomplete() {
       const geocoder = new GeoServices();
       const google = await geocoder.getBackingInstance().load();
-      new google.maps.places.Autocomplete(searchBoxRef.current as unknown as HTMLInputElement);
+      new google.maps.places.Autocomplete(
+        searchBoxRef.current as unknown as HTMLInputElement
+      );
     }
 
     loadAutocomplete();
-  }), [];
+  }),
+    [];
 
   const handleSearch = () => {
-    navigate("/results");
+    navigate(`/results/${coords.lat}/${coords.lng}`);
   };
-  const { tokenValid, decodedToken } = useTokenValidation();
-  
+  const { tokenValid } = useTokenValidation();
+
+  const handleMapSetLocation = (lat: string, lng: string, address: string) => {
+    setSearchLocation(address);
+    setCoords({
+      lat: parseInt(lat),
+      lng: parseInt(lng)
+    });
+  }
+
   if (tokenValid === null) {
     return <div>Loading...</div>; // Or some loading spinner
   }
@@ -82,13 +101,13 @@ const Homepage: React.FC = () => {
     return <div>Invalid token</div>; // Or redirect to login page
   }
 
-
   return (
     <div
       className="relative h-screen bg-center bg-cover"
       style={{ backgroundImage: `url("${background}")` }}
     >
       <div className="absolute inset-0 backdrop-filter backdrop-blur-sm">
+        {/* Your existing code */}
         <CustomerHomeNav />
         <div className="flex flex-col items-center justify-center h-full p-8 mt-8 text-white">
           <div className="p-6 mb-8 text-center rounded-md bg-opacity-80">
@@ -102,14 +121,31 @@ const Homepage: React.FC = () => {
           </p>
           <div className="flex items-center w-full mb-4">
             <div className="flex items-center justify-center w-full">
-              <input
-                ref={searchBoxRef}
-                type="text"
-                className="w-1/2 px-4 py-2 text-black border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500"
-                placeholder="Enter location or hotel name"
-                value={searchLocation}
-                onChange={(e) => setSearchLocation(e.target.value)}
-              />
+              <div className="relative">
+                <img
+                  src="/src/assets/bargraph.png"
+                  alt="Left Icon"
+                  className="absolute mt-2 w-5 h-5"
+                  onClick={togglePopupBar}
+                  style={{ cursor: "pointer" }}
+                />
+                <input
+                  ref={searchBoxRef}
+                  type="text"
+                  style={{ width: "800px" }}
+                  className="px-5 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  placeholder="Enter location or hotel name"
+                  value={searchLocation}
+                  onChange={(e) => setSearchLocation(e.target.value)}
+                />
+                <img
+                  src="/src/assets/maps-icon.png"
+                  alt="Map Icon"
+                  className="absolute bottom-2 right-2 mt-2 w-5 h-7 cursor-pointer"
+                  onClick={togglePopupMap}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
               <select
                 className="p-2 text-blue-500 border border-blue-500 rounded-r-md focus:outline-none"
                 value={searchBudget}
@@ -129,8 +165,33 @@ const Homepage: React.FC = () => {
                 Search
               </button>
             </div>
-
           </div>
+          {isMapPopupOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-md max-w-[690px] mx-auto w-5/6 h-[90vh]">
+                <button
+                  onClick={togglePopupMap}
+                  className=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                >
+                  Close
+                </button>
+                <UserMapComponent onSetLocation={(lat, lng, address) => handleMapSetLocation(lat, lng, address)} />
+              </div>
+            </div>
+          )}
+          {isBarPopupOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-md max-w-[690px] mx-auto w-5/6 h-[90vh]">
+                <button
+                  onClick={togglePopupBar}
+                  className=" bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                >
+                  Close
+                </button>
+                <BarGraph />
+              </div>
+            </div>
+          )}
 
           <div className="w-full overflow-hidden mt-36">
             <div
@@ -156,17 +217,11 @@ const Homepage: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* <div>
-          <UserMapComponent />
-        </div> */}
+        <div>{/* Additional content or components */}</div>
       </div>
-    </div>) // replace with your actual loading component
+    </div>
+  );
+  // replace with your actual loading component
 };
 
-
-
 export default Homepage;
-
-
-
-

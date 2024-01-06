@@ -4,6 +4,9 @@ import "../App.css";
 import logo from '../assets/logo.png';
 import image from '../assets/bg.jpeg';
 import backgroundImage from '../assets/bg.jpg';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const SignupPage = () => {
     const [formData, setFormData] = useState({
@@ -13,7 +16,6 @@ const SignupPage = () => {
         password: '',
         phone_number: '',
         age: '',
-        user_type: '',
     });
 
 
@@ -23,12 +25,24 @@ const SignupPage = () => {
             [e.target.name]: e.target.value,
         });
     };
+    const [signUpError, setSignUpError] = useState<string | null>(null);
+
+    const navigate = useNavigate();
+
 
     const handleSubmit = async () => {
         try {
+            navigate('/login');      
             const response = await axios.post('http://localhost:3000/user/register', formData);
-            console.log('Server response:', response.data);
-            console.log('SignUp succesful!')
+            console.log(response.data.success)
+            if (response.data.success) {
+                console.log('Server response:', response.data);
+                console.log('SignUp succesful!');
+                setSignUpError(null);
+                navigate('/login');      
+                  } else{
+                setSignUpError('Invalid credentials. Please try again.');
+            }
         } catch (error: any) {
             console.log('Axios response:', error.response);
         }
@@ -70,7 +84,7 @@ const SignupPage = () => {
                                         onChange={handleChange}
                                         className="w-full px-4 py-0.5 border rounded-md"
                                     />
-                                </div>
+                                </div>  
                                 <div className="mb-6">
                                     <input
                                         type="text"
@@ -111,18 +125,8 @@ const SignupPage = () => {
                                         className="w-full px-4 py-0.5 border rounded-md"
                                     />
                                 </div>
-                                <div className="mb-6">
-                                    <input
-                                        type="text"
-                                        placeholder="User Type"
-                                        name="user_type"
-                                        value={formData.user_type}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-0.5 border rounded-md"
-                                    />
-                                </div>
                                 <div className="mb-6 text-sm text-blue-500">
-                                    Already have an account? <a href="/create-user">Login here</a>
+                                    Already have an account? <a href="/login">Login here</a>
                                 </div>
                                 <div className="login">
                                     <button className="w-full py-0.5 text-white bg-blue-500 rounded-md hover:bg-blue-600" onClick={handleSubmit}>

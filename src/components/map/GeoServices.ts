@@ -26,6 +26,7 @@ export default class GeoServices extends GeoServicesBase {
   }
 
   getBackingInstance() {
+    console.log('Call backing')
     return this._instance;
   }
 

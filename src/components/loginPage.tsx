@@ -33,16 +33,22 @@ const LoginPage: React.FC = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/user/login', formData);
-
+  
       if (response.data.success) {
         const token = response.data.token;
         Cookies.set('jwtToken', token);
+
+        localStorage.setItem('userId', response.data.id);
+
+        const userEmail = formData.email;
+        localStorage.setItem('userEmail', userEmail);
+
         setLoginError(null);
         navigate('/customer-home-page');
       } else {
         setLoginError('Invalid credentials. Please try again.');
       }
-    } catch (error: any) {
+    } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
 
@@ -51,7 +57,7 @@ const LoginPage: React.FC = () => {
           setLoginError(responseData.message || 'Login failed');
         } else {
           setLoginError('No response from the server');
-          navigate('/user-type');
+          navigate('/login');
         }
       } else {
         console.error('Error during login:', error);
@@ -62,7 +68,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }} >
-      <div className="absolute inset-0  backdrop-filter backdrop-blur-sm" >
+      <div className="absolute inset-0 backdrop-filter backdrop-blur-sm" >
         <div className="flex w-5/6 mx-auto mt-20">
           <div className="flex-1 p-10 bg-white rounded-md shadow-md">
             <div className="mb-6 text-3xl font-semibold text-gray-800">Login</div>
