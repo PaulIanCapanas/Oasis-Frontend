@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import backgroundImage from '../assets/bg.jpg';
 
 const ImageUploadForm: React.FC = () => {
   const [image, setImage] = useState<any>(null);
@@ -18,10 +19,7 @@ const ImageUploadForm: React.FC = () => {
   const handleImageUpload = async () => {
     try {
       const formData = new FormData();
-
       formData.append('image', image);
-
-      console.log(image);
 
       const response = await axios.post('http://localhost:3000/upload-image/upload-image', formData, {
         headers: {
@@ -32,8 +30,6 @@ const ImageUploadForm: React.FC = () => {
         },
       });
 
-      console.log('File uploaded successfully:', response.data);
-
       setImageUrl(response.data.file.path);
     } catch (error) {
       console.error('Error uploading files:', error);
@@ -42,16 +38,24 @@ const ImageUploadForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleImageChange} accept="image/*" />
-      <button onClick={handleImageUpload}>Upload Images</button>
-      {imageUrl && (
-        <div>
-          <h2>Uploaded Image</h2>
-          <img src={imageUrl} alt="Uploaded" style={{ maxWidth: '100%' }} />
+    <div className="flex items-center justify-center min-h-screen bg-center bg-cover" style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <div className="max-w-md p-6 mx-auto bg-white border rounded shadow">
+        <h1 className="mb-4 text-2xl font-semibold">Verification File Upload</h1>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Choose File:</label>
+          <input type="file" onChange={handleImageChange} accept="image/*" className="p-2 mt-1 border rounded" />
         </div>
-      )}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+        <button onClick={handleImageUpload} className="px-4 py-2 text-white bg-blue-500 rounded">
+          Upload File
+        </button>
+        {imageUrl && (
+          <div className="mt-4">
+            <h2 className="mb-2 text-xl font-semibold">Uploaded Image</h2>
+            <img src={imageUrl} alt="Uploaded" className="max-w-full" />
+          </div>
+        )}
+        {error && <div className="mt-4 text-red-500">{error}</div>}
+      </div>
     </div>
   );
 };
