@@ -38,6 +38,8 @@ const LoginPage: React.FC = () => {
         const token = response.data.token;
         Cookies.set('jwtToken', token);
 
+        localStorage.setItem('userId', response.data.id);
+
         const userEmail = formData.email;
         localStorage.setItem('userEmail', userEmail);
 
@@ -46,7 +48,7 @@ const LoginPage: React.FC = () => {
       } else {
         setLoginError('Invalid credentials. Please try again.');
       }
-    } catch (error: any) {
+    } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
 

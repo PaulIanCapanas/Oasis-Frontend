@@ -7,6 +7,7 @@ import ResultsPage from "./components/searchResults"
 import UserType from "./components/pickUserTypePage"
 import ImageUploadForm from "./components/ImageUploadForm"
 import Description from "./components/descriptionPage";
+import BuildingRegistration from "./components/buildingRegisterPage"
 import UserMapComponent from "./components/userMapComponent";
 import BuildingRegistration from "./components/buildingRegisterPage"
 import { useState } from "react";
@@ -21,10 +22,9 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/create-user" element={<SignupPage />} />
         <Route path="/customer-home-page" element={<CustomerHomePage/>} />
-        <Route path="/results/:id" element={<ResultsPage/>}/>
+        <Route path="/results/:lat/:lng" element={<ResultsPage/>}/>
         <Route path="/user-type" element={<UserType/>} />
-        <Route path="/description" element={<Description/>} />
-        <Route path="/map" element={<UserMapComponent/>} />
+        <Route path="/description/:id" element={<Description/>} />
         <Route path="/building-register" element={<BuildingRegistration/>} />
         <Route path="chat-entry" element={<ChatEntry/>} />
         {/* <Route path="/user-page" element={<UserPage/>} />

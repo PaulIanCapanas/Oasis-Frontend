@@ -8,6 +8,54 @@ import backgroundImage from '../assets/bg.jpg';
 
 const BuildingCreator = () => {
 
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    user_id: parseInt(localStorage.getItem('userId') ?? '0'),
+    longitude: '',
+    latitude: '',
+    description: '',
+    address: '',
+  })
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      name: event.currentTarget.value
+    })
+  }
+
+  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      description: event.currentTarget.value
+    })
+  }
+
+  const handleLocationChange = (lat: string, lng: string, address: string) => {
+    console.log(lat, lng, address);
+    setFormData(l => ({
+      ...l,
+      longitude: lng,
+      latitude: lat,
+      address: address
+    }))
+
+    setPopupOpen(false);
+  }
+
+  const handleSubmit = async () => {
+    try {
+      await axios.post('http://localhost:3000/building/create-building', {
+        ...formData,
+        longitude: Number(formData.longitude),
+        latitude: Number(formData.latitude)
+      })
+    } catch (e) {
+      console.error('Axios response:', e);
+    }
+  }
+  
   const [formData, setFormData] = useState({
     name: '',
     user_id: '',
@@ -35,7 +83,6 @@ const BuildingCreator = () => {
     setPopupOpen(!isPopupOpen);
   };
 
-
   return (
     <>
       <CustomerHomeNav />
@@ -46,11 +93,11 @@ const BuildingCreator = () => {
               <div className="bg-white p-8 rounded-md shadow-md">
                 <h2 className="text-3xl font-semibold mb-4">Building Creation</h2>
                 <div className='relative mb-4'>
-                  <input type="text" id='name' placeholder='Name' className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-                  <input type="text" id='description' placeholder='Description' className="mt-2 w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+                  <input type="text" id='name' placeholder='Name' value={formData.name} onInput={handleNameChange} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+                  <input type="text" id='description' placeholder='Description' value={formData.description} onInput={handleDescriptionChange} className="mt-2 w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
                   <div className="relative flex items-center"> {/* Wrap Location input and image in a flex container */}
-                    <input type="location" name="Longitude" id="longitude" placeholder='Longitude' className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
-                    <input type="location" name="Latitude" id="latitude" placeholder='Latitude' className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+                    <input type="location" name="Longitude" id="longitude" placeholder='Longitude' value={formData.longitude} readOnly={true} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
+                    <input type="location" name="Latitude" id="latitude" placeholder='Latitude' value={formData.latitude} readOnly={true} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" />
                     <img
                       src="/src/assets/maps-icon.png"
                       alt="Map Icon"
@@ -75,7 +122,7 @@ const BuildingCreator = () => {
                         <button onClick={togglePopup} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-4">
                           Close
                         </button>
-                        <UserMapComponent />
+                        <UserMapComponent onSetLocation={(lat, lng, address) => handleLocationChange(lat, lng, address)}  />
                       </div>
                     </div>
                   )}

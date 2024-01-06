@@ -5,19 +5,23 @@ import GeoServices from './map/GeoServices';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function UserMapComponent() {
+type UserMapComponentProp = {
+  onSetLocation: (lat: string, lng: string, address: string) => void;
+}
+
+export default function UserMapComponent(prop: UserMapComponentProp) {
   const mapRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function geoCode() {
       const geocoder = new GeoServices();
-      const { latitude, longitude } = await geocoder.geocode();
 
       const google = await geocoder.getBackingInstance().load();
+      console.log(google);
       const searchBox = new google.maps.places.SearchBox(document.getElementById('search-box') as HTMLInputElement);
       const map = new google.maps.Map(mapRef.current as unknown as HTMLDivElement, {
-        center: { lat: latitude, lng: longitude },
+        center: { lat: 0, lng: 0 },
         zoom: 16
       });
 
@@ -35,45 +39,21 @@ export default function UserMapComponent() {
       });
 
       map.addListener('click', async (event: any) => {
-        console.log(event.latLng.lng(), event.latLng.lat())
-        const lat = event.latLng.lat().toFixed(5)
-        const lng = event.latLng.lng().toFixed(5)
-        try {
-          const response = await axios.post('http://localhost:3000/user/get-user-location', {
-            lat,
-            lng
-          })
-          console.log(response)
-        } catch(err) {
-          console.error(err)
-        }
-        
-        // .then((response) => {
-        //   console.log(response.data)
-        //   const marker = new google.maps.Marker({
-        //     position: event.latLng,
-        //     map: map
-        //   });
-        //   navigate(`/results/${response.data.id.id}`)
-        // }).catch((error) => {
-        //   console.log(error)
-        // })
+        const marker = new google.maps.Marker({
+          position: event.latLng,
+          map: map
+        });
 
-        console.log(event)
-        const response = await axios.post('http://localhost:3000/user/get-user-location', {
-          lng: event.latLng.lng(),
-          lat: event.latLng.lat(),
-        }).then((response) => {
-          console.log(response.data)
-          const marker = new google.maps.Marker({
-            position: event.latLng,
-            map: map
-          });
-          // navigate(`/results/${response.data.id.id}`)
-        }).catch((error) => {
-          console.log(error)
-        })
-        console.log(response)
+        setTimeout(function () {
+          const reverse = new google.maps.Geocoder();
+          reverse.geocode({
+            location: {
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng()
+            }
+          }).then(response => {
+            prop.onSetLocation(event.latLng.lat().toFixed(9), event.latLng.lng().toFixed(9), response.results[0].formatted_address)
+          })
       });
 
       searchBox.addListener('places_changed', () => {
@@ -112,8 +92,7 @@ export default function UserMapComponent() {
 
   return (
     <div className="relative h-screen">
-      <div style={{ height: "70%", width: "100%" }} ref={mapRef}>
-      </div>
+      <div style={{ height: "70%", width: "100%" }} ref={mapRef}></div>
       <div className="absolute top-0 left-0 right-0 text-center p-4">
         <input
           id="search-box"
