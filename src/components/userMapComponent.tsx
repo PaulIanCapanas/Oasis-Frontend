@@ -54,7 +54,6 @@ export default function UserMapComponent(prop: UserMapComponentProp) {
           }).then(response => {
             prop.onSetLocation(event.latLng.lat().toFixed(9), event.latLng.lng().toFixed(9), response.results[0].formatted_address)
           })
-        }, 1000);
       });
 
       searchBox.addListener('places_changed', () => {

@@ -8,6 +8,10 @@ import UserType from "./components/pickUserTypePage"
 import ImageUploadForm from "./components/ImageUploadForm"
 import Description from "./components/descriptionPage";
 import BuildingRegistration from "./components/buildingRegisterPage"
+import UserMapComponent from "./components/userMapComponent";
+import BuildingRegistration from "./components/buildingRegisterPage"
+import { useState } from "react";
+import BuildingMapComponent from "./components/buildingMapComponent";
 import ChatEntry from "./components/messaging/chatEntry";
 
 const App = () => {

@@ -13,39 +13,6 @@ interface Feature {
   description: string;
 }
 
-const features: Feature[] = [
-  {
-    title: "Looking for?",
-    content: "Wifi",
-    description: "Boarding houses equipped with wifi",
-  },
-  {
-    title: "For how many?",
-    content: "Number of residents",
-    description: "The number of residents that will be living",
-  },
-  {
-    title: "Meal Options",
-    content: "Meal plans available",
-    description: "Options for meals during the stay",
-  },
-  {
-    title: "Security Measures",
-    content: "24/7 security",
-    description: "Ensuring the safety of residents around the clock",
-  },
-  {
-    title: "Common Areas",
-    content: "Shared spaces",
-    description: "Spaces for socializing and community interaction",
-  },
-  {
-    title: "Laundry Facilities",
-    content: "On-site laundry",
-    description: "Convenient access to laundry services",
-  },
-];
-
 const Homepage: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState<string>("");
   const [coords, setCoords] = useState<{lat: number, lng: number}>({
@@ -58,7 +25,6 @@ const Homepage: React.FC = () => {
   const navigate = useNavigate();
 
   const [isMapPopupOpen, setIsMapPopupOpen] = useState(false);
-  const [isBarPopupOpen, setIsBarPopupOpen] = useState(false);
 
   const togglePopupMap = () => {
     setIsMapPopupOpen(!isMapPopupOpen);
@@ -92,6 +58,12 @@ const Homepage: React.FC = () => {
       lng: parseInt(lng)
     });
   }
+    const geocoder = new GeoServices();
+    const google = geocoder.getBackingInstance();
+
+    navigate("/results");
+  };
+  const { tokenValid, decodedToken } = useTokenValidation();
 
   if (tokenValid === null) {
     return <div>Loading...</div>; // Or some loading spinner
