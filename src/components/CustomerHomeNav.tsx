@@ -38,12 +38,6 @@ const handleLogout = () => {
               isDropdownOpen ? "block" : "hidden"
             } absolute right-0 p-2 mt-2 text-black bg-white rounded-md`}
           >
-            <Link to="/profile" className="block">
-              User
-            </Link>
-            <Link to="/messages" className="block">
-              Messages
-            </Link>
             <Link to="/building-register" className="block">
               Listings
             </Link>
